@@ -28,5 +28,7 @@ func (repo *authData) FindUser(email string) (result auth.Core, err error) {
 		return auth.Core{}, errors.New("login failed")
 	}
 
+	result = userData.toCore()
+
 	return result, nil
 }

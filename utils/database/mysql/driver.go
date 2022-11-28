@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"14-api-clean-arch/config"
+	user "14-api-clean-arch/features/user/repository"
 	"fmt"
 	"log"
 
@@ -16,5 +17,11 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 		log.Fatal("Cannot connect to DB")
 	}
 
+	migrateDB(db)
+
 	return db
+}
+
+func migrateDB(db *gorm.DB) {
+	db.AutoMigrate(&user.User{})
 }

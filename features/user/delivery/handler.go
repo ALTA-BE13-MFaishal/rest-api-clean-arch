@@ -37,13 +37,13 @@ func (delivery *UserDelivery) Create(c echo.Context) error {
 	userInput := UserRequest{}
 	errBind := c.Bind(&userInput) // menangkap data yg dikirim dari req body dan disimpan ke variabel
 	if errBind != nil {
-		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data. "+errBind.Error()))
 	}
 
 	dataCore := toCore(userInput)
 	err := delivery.userService.Create(dataCore)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Failed insert data"+err.Error()))
+		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Failed insert data. "+err.Error()))
 	}
 	return c.JSON(http.StatusCreated, helper.SuccessResponse("success create data"))
 }

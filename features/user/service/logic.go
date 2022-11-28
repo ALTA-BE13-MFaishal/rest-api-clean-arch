@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/labstack/gommon/log"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -34,14 +35,16 @@ func (service *userService) Create(input user.Core) (err error) {
 
 	bytePass, errEncrypt := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
 	if errEncrypt != nil {
-		return errors.New("failed to insert data, error on password. please check password again.")
+		log.Error(errEncrypt.Error())
+		return errors.New("Error process password. Please contact your administrator.")
 	}
 
 	input.Password = string(bytePass)
 
 	_, errCreate := service.userRepository.Create(input)
 	if errCreate != nil {
-		return errors.New("failed to insert data, error query")
+		log.Error(errCreate.Error())
+		return errors.New("Error process query. Please contact your administrator.")
 	}
 
 	return nil

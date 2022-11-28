@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/go-playground/validator/v10 v10.11.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.9.1
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/crypto v0.3.0

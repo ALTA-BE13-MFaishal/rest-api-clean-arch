@@ -4,6 +4,7 @@ import (
 	"14-api-clean-arch/features/auth"
 	"14-api-clean-arch/middlewares"
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
@@ -42,13 +43,17 @@ func (service *authService) Login(dataCore auth.Core) (string, error) {
 	}
 
 	errCheckPass := bcrypt.CompareHashAndPassword([]byte(result.Password), []byte(dataCore.Password))
+	fmt.Println("Data Core = ", dataCore, "\n\n\n")
+	fmt.Println("Result = ", result, "\n\n\n")
 	if errCheckPass != nil {
+		log.Error(errCheckPass.Error())
 		return "", errors.New("Failed to Login. Password didn't match. Please check password again.")
 	}
 
 	token, errToken := middlewares.CreateToken(int(result.ID), result.Role)
 	if errToken != nil {
-		return "", errors.New("Failed to login. error on password. please check password again.")
+		log.Error(errToken.Error())
+		return "", errors.New("Failed to login. Error on generate token. Please check password again.")
 	}
 
 	return token, nil
