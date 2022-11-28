@@ -39,7 +39,7 @@ func TestLogin(t *testing.T) {
 
 		assert.Contains(t, errLogin1, "validate input", "Failed login. Empty Email.")
 		assert.Contains(t, errLogin2, "validate input", "Failed login. Empty Password.")
-		assert.Contains(t, errLogin3, "validate input", , "Failed login. Empty Email and Password.")
+		assert.Contains(t, errLogin3, "validate input", "Failed login. Empty Email and Password.")
 		repo.AssertExpectations(t)
 	})
 }

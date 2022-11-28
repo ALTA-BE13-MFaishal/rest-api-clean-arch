@@ -43,6 +43,40 @@ func (repo *userRepository) GetAll() (data []user.Core, err error) {
 }
 
 // GetById implements user.RepositoryInterface
-func (*userRepository) GetById(id int) (data user.Core, err error) {
-	panic("unimplemented")
+func (repo *userRepository) GetById(id int) (data user.Core, err error) {
+	var user User
+
+	tx := repo.db.First(&user, id)
+	if tx.Error != nil {
+		return data, tx.Error
+	}
+	var dataCore = user.toCore()
+	return dataCore, nil
+}
+
+// Update implements user.Repository
+func (repo *userRepository) Update(input user.Core, id int) (row int, err error) {
+	userGorm := fromCore(input)
+	var user User
+	tx := repo.db.Model(&user).Where("ID = ?", id).Updates(&userGorm) // proses update
+	if tx.Error != nil {
+		return -1, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return 0, errors.New("update failed")
+	}
+	return int(tx.RowsAffected), nil
+}
+
+// Delete implements user.Repository
+func (repo *userRepository) Delete(id int) (row int, err error) {
+	var user User
+	tx := repo.db.Delete(&user, id) // proses delete
+	if tx.Error != nil {
+		return -1, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return 0, errors.New("delete failed")
+	}
+	return int(tx.RowsAffected), nil
 }

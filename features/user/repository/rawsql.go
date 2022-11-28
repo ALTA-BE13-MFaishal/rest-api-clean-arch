@@ -29,3 +29,9 @@ func (*userRawRepository) Create(input user.Core) (row int, err error) {
 func (*userRawRepository) GetAll() (data []user.Core, err error) {
 	panic("unimplemented")
 }
+func (*userRawRepository) Update(input user.Core, id int) (row int, err error) {
+	panic("unimplemented")
+}
+func (*userRawRepository) Delete(id int) (row int, err error) {
+	panic("unimplemented")
+}

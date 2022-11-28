@@ -23,4 +23,6 @@ type RepositoryInterface interface {
 	GetAll() (data []Core, err error)
 	Create(input Core) (row int, err error)
 	GetById(id int) (data Core, err error)
+	Update(input Core, id int) (row int, err error)
+	Delete(id int) (row int, err error)
 }
