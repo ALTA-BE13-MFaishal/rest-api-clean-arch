@@ -27,6 +27,7 @@ func New(data auth.RepositoryInterface) auth.ServiceInterface {
 func (service *authService) Login(dataCore auth.Core) (string, error) {
 
 	if errValidate := service.validate.Struct(dataCore); errValidate != nil {
+		log.Error(errValidate.Error())
 		return "", errors.New("Failed to Login. Error validate input. Please check your input.")
 	}
 
