@@ -56,3 +56,16 @@ func (service *userService) GetAll() (data []user.Core, err error) {
 	return
 
 }
+
+func (service *userService) GetById(id int) (data user.Core, err error) {
+
+	return user.Core{}, err
+}
+
+func (service *userService) Update(input user.Core, id int) error {
+	return nil
+}
+
+func (service *userService) Delete(id int) error {
+	return nil
+}

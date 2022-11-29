@@ -34,6 +34,27 @@ func (_m *UserRepository) Create(input user.Core) (int, error) {
 	return r0, r1
 }
 
+// Delete provides a mock function with given fields: id
+func (_m *UserRepository) Delete(id int) (int, error) {
+	ret := _m.Called(id)
+
+	var r0 int
+	if rf, ok := ret.Get(0).(func(int) int); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(int) error); ok {
+		r1 = rf(id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetAll provides a mock function with given fields:
 func (_m *UserRepository) GetAll() ([]user.Core, error) {
 	ret := _m.Called()
@@ -71,6 +92,27 @@ func (_m *UserRepository) GetById(id int) (user.Core, error) {
 	var r1 error
 	if rf, ok := ret.Get(1).(func(int) error); ok {
 		r1 = rf(id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// Update provides a mock function with given fields: input, id
+func (_m *UserRepository) Update(input user.Core, id int) (int, error) {
+	ret := _m.Called(input, id)
+
+	var r0 int
+	if rf, ok := ret.Get(0).(func(user.Core, int) int); ok {
+		r0 = rf(input, id)
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(user.Core, int) error); ok {
+		r1 = rf(input, id)
 	} else {
 		r1 = ret.Error(1)
 	}

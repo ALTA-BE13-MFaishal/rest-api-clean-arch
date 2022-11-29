@@ -16,7 +16,10 @@ type Core struct {
 
 type ServiceInterface interface {
 	GetAll() (data []Core, err error)
-	Create(input Core) (err error)
+	Create(input Core) error
+	GetById(id int) (data Core, err error)
+	Update(input Core, id int) error
+	Delete(id int) error
 }
 
 type RepositoryInterface interface {
