@@ -12,9 +12,9 @@ type AppConfig struct {
 	DB_USERNAME string
 	DB_PASSWORD string
 	DB_HOST     string
-	DB_PORT     int
+	DB_PORT     uint
 	DB_NAME     string
-	SERVER_PORT int16
+	SERVER_PORT uint
 	JWT_SECRET  string
 }
 
@@ -42,22 +42,22 @@ func initConfig() *AppConfig {
 	// }
 
 	// SECRET = os.Getenv("SECRET")
-	cnv, err := strconv.Atoi(os.Getenv("SERVER_PORT"))
+	cnvServerPort, err := strconv.Atoi(os.Getenv("SERVER_PORT"))
 	if err != nil {
-		log.Fatal("Cannot parse DB Port variable")
+		log.Fatal("Cannot parse Server Port variable")
 		return nil
 	}
-	defaultConfig.SERVER_PORT = int16(cnv)
+	defaultConfig.SERVER_PORT = uint(cnvServerPort)
 	defaultConfig.DB_NAME = os.Getenv("DB_NAME")
 	defaultConfig.DB_USERNAME = os.Getenv("DB_USERNAME")
 	defaultConfig.DB_PASSWORD = os.Getenv("DB_PASSWORD")
 	defaultConfig.DB_HOST = os.Getenv("DB_HOST")
-	cnv, err = strconv.Atoi(os.Getenv("DB_PORT"))
+	cnvDBPort, err := strconv.Atoi(os.Getenv("DB_PORT"))
 	if err != nil {
 		log.Fatal("Cannot parse DB Port variable")
 		return nil
 	}
-	defaultConfig.DB_PORT = cnv
+	defaultConfig.DB_PORT = uint(cnvDBPort)
 	defaultConfig.JWT_SECRET = os.Getenv("JWT_SECRET")
 
 	return &defaultConfig
