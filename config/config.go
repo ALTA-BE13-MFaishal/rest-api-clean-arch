@@ -17,6 +17,7 @@ type AppConfig struct {
 	DB_PORT     int
 	DB_NAME     string
 	SERVER_PORT int16
+	JWT_SECRET  string
 }
 
 var lock = &sync.Mutex{}
@@ -59,6 +60,7 @@ func initConfig() *AppConfig {
 		return nil
 	}
 	defaultConfig.DB_PORT = cnv
+	defaultConfig.JWT_SECRET = os.Getenv("JWT_SECRET")
 
 	return &defaultConfig
 }

@@ -9,10 +9,16 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+var key string
+
+func InitJWT(c *config.AppConfig) {
+	key = c.JWT_SECRET
+}
+
 func JWTMiddleware() echo.MiddlewareFunc {
 	return middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningMethod: "HS256",
-		SigningKey:    []byte(config.SECRET_JWT),
+		SigningKey:    []byte(key),
 	})
 }
 
@@ -23,7 +29,7 @@ func CreateToken(userId int, role string) (string, error) {
 	claims["role"] = role
 	claims["exp"] = time.Now().Add(time.Hour * 1).Unix() //Token expires after 1 hour
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(config.SECRET_JWT))
+	return token.SignedString([]byte(key))
 
 }
 
